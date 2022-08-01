@@ -8,21 +8,24 @@ import { CarDTO } from "../dtos/CarDto";
 
 export function Home() {
 
-  const [pokemon, setPokemon] = useState<CarDTO[]>([])
+  const [pokemons, setPokemons] = useState<CarDTO[]>([]);
 
   useEffect(() => {
     async function fetchPokemon() {
       try {
-        const response = await api.get('/pokemon?limit=1155&offset=0')
-        setPokemon(response.data.results)
+        const response = await api.get('/pokemon')
+        setPokemons(response.data.results)
         
       } catch (error) {
         console.log(error)
       }
     }
     fetchPokemon()
+
   }, [])
 
+
+  console.log(pokemons[0])
   return(
     <VStack
     flex={1}
@@ -31,7 +34,7 @@ export function Home() {
     bg="gray.600"
     >
       <FlatList
-      data={pokemon}
+      data={pokemons}
       keyExtractor={(item) =>item.id}
       renderItem={({item}) =>
       <Card data={item}/>
