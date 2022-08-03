@@ -26,7 +26,7 @@ export function Card({data} : Props) {
     bg="white"
     rounded="md"
     p={6}
-    mb={6}
+    mb={3}
     >
       <HStack
       flex={1}
