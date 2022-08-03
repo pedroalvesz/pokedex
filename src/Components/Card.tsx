@@ -1,6 +1,5 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import { Heading, HStack, Image, Text, VStack, Circle} from 'native-base'
-import api from "../services/api";
 
 
 interface PokeData {
@@ -36,12 +35,15 @@ export function Card({data} : Props) {
       
       <VStack>
         <Heading textTransform="capitalize" fontSize={16}>{data.name}</Heading>
-        <Text>{data.id}</Text>
-        <Text>type2</Text>
-  
+        <HStack
+        >
+          <Text pr={2}>type1</Text>
+          <Text>type2</Text>
+        </HStack>
       </VStack>
-        <Circle bg="gray.500" w={24} h={24}>
-        <Image source={{uri : SpriteImage}} alt="Alternate Text" size="sm"/>
+        <Circle w={24} h={24}>
+        <Image position='absolute' zIndex={0} source={{uri : "https://www.nicepng.com/png/full/15-158271_pokeball-icon.png"}} alt="Alternate Text" size="100%"/>
+        <Image position='absolute' zIndex={1}source={{uri : SpriteImage}} alt="Alternate Text" size="sm"/>
         </Circle>
       </HStack>
       
