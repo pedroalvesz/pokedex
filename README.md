@@ -5,7 +5,7 @@
  ⚡ A SIMPLE API CONSUMPTION W/ POKEAPI V2
 </h2>
   <div width="100%" overflow="hidden" align="center">
-  <img src="iosCalculator.gif" width="55%" />
+  <img src="pokedex.gif" width="45%" />
   </div>
   <p align="center" width="30%">
  ⚠️ iOS Platform used only for illustration,
