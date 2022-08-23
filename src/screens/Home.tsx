@@ -4,17 +4,26 @@ import { Card } from "../Components/Card";
 
 import api from "../services/api";
 
-import { CarDTO } from "../dtos/CarDto";
+import { PokeDTO } from "../dtos/PokeDto";
+import axios from "axios";
 
 export function Home() {
 
-  const [pokemons, setPokemons] = useState<CarDTO[]>([]);
+  const [pokemons, setPokemons] = useState<PokeDTO[]>([]);
 
   useEffect(() => {
     async function fetchPokemon() {
       try {
-        const response = await api.get('/pokemon?limit=2000&offset=0')
-        setPokemons(response.data.results)
+        const urls = []
+        for(let i = 1; i < 100; i++) {
+          const url = `https://pokeapi.co/api/v2/pokemon/${i}`
+          urls.push(url)
+        }
+
+        const response = await axios.all(urls.map((url) => axios.get(url)))
+        setPokemons(response)
+        //const response = await api.get('/pokemon?limit=2000&offset=0')
+        //setPokemons(response.data.results)
         
       } catch (error) {
         console.log(error)
@@ -23,14 +32,18 @@ export function Home() {
     fetchPokemon()
 
   }, [])
+  //parar de puxar todos em lista direto
+  //puxar cada um pelo numero com o loop for
+  // e depois passar todos para o estado
 
   return(
     <VStack
     flex={1}
-    pt="130"
+    pt="50"
     px={6}
     bg="#3B4CCA"
     >
+      <Text textAlign="center" color="white" pb="80px">Developed by pedroalvesz 👋</Text>
       <HStack
       width="100%"
       justifyContent="flex-end"
@@ -52,9 +65,9 @@ export function Home() {
       </HStack>
       <FlatList
       data={pokemons}
-      keyExtractor={(item) =>item.name}
+      keyExtractor={(item) =>item.data.name}
       renderItem={({item}) =>
-      <Card data={item}/>
+      <Card data={item.data} image={item.data.sprites.front_default} types={item.data.types}/>
     }
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{borderRadius: 40, paddingBottom:60}} 
