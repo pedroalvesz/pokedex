@@ -2,7 +2,7 @@
 
 
 <h2 align="center">
- ⚡ A SIMPLE POKEAPI V2 CONSUMPTION - PROJECT IS NOT YET COMPLETED
+ ⚡ A SIMPLE POKEAPI V2 CONSUMPTION - GIF IS NOT UPDATED
 </h2>
   <div width="100%" overflow="hidden" align="center">
   <img src="pokedex.gif" width="45%" />
