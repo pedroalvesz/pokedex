@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { FlatList, HStack, Text, VStack } from 'native-base'
 import { Card } from "../Components/Card";
 
-import api from "../services/api";
 
 import { PokeDTO } from "../dtos/PokeDto";
 import axios from "axios";
@@ -15,7 +14,7 @@ export function Home() {
     async function fetchPokemon() {
       try {
         const urls = []
-        for(let i = 1; i < 100; i++) {
+        for(let i = 1; i < 20; i++) {
           const url = `https://pokeapi.co/api/v2/pokemon/${i}`
           urls.push(url)
         }
@@ -32,9 +31,6 @@ export function Home() {
     fetchPokemon()
 
   }, [])
-  //parar de puxar todos em lista direto
-  //puxar cada um pelo numero com o loop for
-  // e depois passar todos para o estado
 
   return(
     <VStack
