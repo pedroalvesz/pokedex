@@ -5,7 +5,7 @@
  ⚡ A SIMPLE POKEAPI V2 CONSUMPTION - GIF IS NOT UPDATED
 </h2>
   <div width="100%" overflow="hidden" align="center">
-  <img src="pokedex.gif" width="45%" />
+  <img src="pokedex.gif" width="44%" />
   </div>
   <p align="center" width="30%">
  ⚠️ iOS Platform used only for illustration,
