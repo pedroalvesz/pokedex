@@ -2,10 +2,10 @@
 
 
 <h2 align="center">
- ⚡ A SIMPLE POKEAPI V2 CONSUMPTION - PROJECT IS NOT YET COMPLETED
+ ⚡ A SIMPLE POKEAPI V2 CONSUMPTION - PROJECT NOT FINISHED YET
 </h2>
   <div width="100%" overflow="hidden" align="center">
-  <img src="pokedex.gif" width="45%" />
+  <img src="dex.gif" width="45%" />
   </div>
   <p align="center" width="30%">
  ⚠️ iOS Platform used only for illustration,
