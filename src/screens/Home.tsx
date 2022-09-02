@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, Heading, HStack, Text, VStack } from 'native-base'
+import { Center, FlatList, Heading, HStack, Image, Text, VStack } from 'native-base'
 import { Card } from "../Components/Card";
 import axios from "axios";
 
@@ -46,10 +46,13 @@ export function Home() {
   return(
     <VStack
     flex={1}
-    pt="50"
+    pt="20px"
     px={6}
     bg="#3B4CCA"
     >
+      <Center pb={5}>
+      <Image source={require('../assets/logo.png') } w="200px" h="65px" />
+      </Center>
       <SearchBar filterPokemon={filterPokemon}/>
 
       <HStack
