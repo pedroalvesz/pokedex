@@ -25,8 +25,6 @@ export function Home() {
 
       const response = await axios.all(urls.map((url) => axios.get(url)))
       setPokemons(response)
-      //const response = await api.get('/pokemon?limit=2000&offset=0')
-      //setPokemons(response.data.results)
       
     } catch (error) {
       console.log(error)
