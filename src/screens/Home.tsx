@@ -33,10 +33,10 @@ export function Home() {
 
 
   function filterPokemon(name) {
-    if (name === "") {
+    if (name.trim() === "") {
       fetchPokemon()
     }
-    const filteredPokemon = pokemons.map(pokemon => ({...pokemon})).filter(pokemon => pokemon.data.name.includes(name))
+    const filteredPokemon = pokemons.map(pokemon => ({...pokemon})).filter(pokemon => pokemon.data.name.includes(name.toLowerCase()))
 
     setPokemons(filteredPokemon)
   }
@@ -44,19 +44,20 @@ export function Home() {
   return(
     <VStack
     flex={1}
-    pt="20px"
+    pt="45px"
     px={6}
     bg="#3B4CCA"
     >
       <Center pb={5}>
-      <Image source={require('../assets/logo.png') } w="200px" h="65px" />
+      <Image w="200px" h="65px" source={require('../assets/logo.png')} alt="Pokedex Logo"/>
       </Center>
       <SearchBar filterPokemon={filterPokemon}/>
 
       <HStack
       width="100%"
       justifyContent="flex-end"
-      py={8}
+      pt={6}
+      pb={3}
       >
       <HStack>
         <Text
@@ -85,7 +86,6 @@ export function Home() {
       contentContainerStyle={{borderRadius: 40, paddingBottom:60}} 
       />
 
-      <Text textAlign="center" color="white" pb="30px">Developed by pedroalvesz 👋</Text>
     </VStack>
   )
 }

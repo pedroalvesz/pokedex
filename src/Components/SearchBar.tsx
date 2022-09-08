@@ -22,7 +22,7 @@ export function SearchBar({filterPokemon} : SearchBarProps) {
     py="1" 
     px="2" 
     InputLeftElement={<Icon ml="2" size="4" color="gray.400" as={<Ionicons name="ios-search" />} />}
-    onChangeText={filterPokemon}
+    onChangeText={name => filterPokemon(name)}
     />
   </VStack>
   )

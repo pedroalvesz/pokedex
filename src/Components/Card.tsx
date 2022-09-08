@@ -60,7 +60,7 @@ export function Card({data, image, types} : Props) {
       </VStack> 
         <Circle w={24} h={24}>
         <Image position='absolute' zIndex={0} source={require('../assets/pokeball.jpg')} alt="Alternate Text" size="100%"/>
-        <Image position='absolute' zIndex={1}source={{uri : image}} alt="Alternate Text" size="lg"/>
+        <Image position='absolute' zIndex={1} source={{uri : image}} alt="Alternate Text" size="lg"/>
         </Circle>
       </HStack>
       
