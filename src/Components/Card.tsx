@@ -1,5 +1,5 @@
 import React from "react";
-import { Heading, HStack, Image, Text, VStack, Circle, useTheme} from 'native-base'
+import { Heading, HStack, Image, Text, VStack, Circle, useTheme, Box} from 'native-base'
 
 
 interface PokeData {
@@ -29,8 +29,8 @@ export function Card({data, image, types} : Props) {
   return(
     <HStack
     w="100%"
-    h="130px"
-    bg="white"
+    h="120px"
+    bg={colors.light[types[0].type.name]}
     rounded="md"
     p={6}
     mb={3}
@@ -42,25 +42,30 @@ export function Card({data, image, types} : Props) {
       >
       
       <VStack>
-        <Heading textTransform="capitalize" fontSize={16}>{data.name}</Heading>
+        <Heading pb={0.5} textTransform="capitalize" fontSize={16}>{data.name}</Heading>
         <HStack
         >
           {types[1] 
           ?
           <>
-          <Text rounded="lg" px={1} mr={2} bg={colors[types[0].type.name]}>{types[0].type.name}</Text>
-          <Text rounded="lg" px={1} bg={colors[types[1].type.name]}>{types[1].type.name}</Text>
+          <Box rounded="lg" mr={1} bg={colors[types[0].type.name]}>
+            <Text px={1}>{types[0].type.name}</Text>
+          </Box>
+          <Box rounded="lg" bg={colors[types[1].type.name]}>
+            <Text px={1}>{types[1].type.name}</Text>
+          </Box>
           </>
           :
-          <Text rounded="lg" px={1} bg={colors[types[0].type.name]}>{types[0].type.name}</Text>
+          <Box rounded="lg" bg={colors[types[0].type.name]}>
+            <Text px={1}>{types[0].type.name}</Text>
+          </Box>
          }
           
         </HStack>
         
       </VStack> 
         <Circle w={24} h={24}>
-        <Image position='absolute' zIndex={0} source={require('../assets/pokeball.jpg')} alt="Alternate Text" size="100%"/>
-        <Image position='absolute' zIndex={1} source={{uri : image}} alt="Alternate Text" size="lg"/>
+        <Image position='absolute' zIndex={1} source={{uri : image}} alt="Alternate Text" size="xl"/>
         </Circle>
       </HStack>
       

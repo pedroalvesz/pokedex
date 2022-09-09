@@ -7,7 +7,8 @@ import { THEME } from './styles/theme';
 export default function App() {
   return (
     <NativeBaseProvider theme={THEME}>
-      <Home/>
+      <StatusBar style='dark'/>
+        <Home/>
     </NativeBaseProvider>
   )
 };

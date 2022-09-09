@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Center, FlatList, Heading, HStack, Image, Text, VStack } from 'native-base'
-import { Card } from "../Components/Card";
+import { Center, FlatList, HStack, Image, Text, VStack } from 'native-base'
+import { Ionicons} from "@expo/vector-icons";
 import axios from "axios";
 
+
+
+import { Card } from "../Components/Card";
 import { PokeDTO } from "../dtos/PokeDto";
 import { SearchBar } from "../Components/SearchBar";
 
@@ -18,7 +21,7 @@ export function Home() {
   async function fetchPokemon() {
     try {
       const urls = []
-      for(let i = 1; i < 21; i++) {
+      for(let i = 1; i < 50; i++) {
         const url = `https://pokeapi.co/api/v2/pokemon/${i}`
         urls.push(url)
       }
@@ -46,10 +49,10 @@ export function Home() {
     flex={1}
     pt="45px"
     px={6}
-    bg="#3B4CCA"
+    bg="white"
     >
       <Center pb={5}>
-      <Image w="200px" h="65px" source={require('../assets/logo.png')} alt="Pokedex Logo"/>
+      <Image w="200px" h="75px" source={require('../assets/logo.png')} alt="Pokedex Logo"/>
       </Center>
       <SearchBar filterPokemon={filterPokemon}/>
 
@@ -61,14 +64,12 @@ export function Home() {
       >
       <HStack>
         <Text
-        color="white"
         fontSize={16}
         fontWeight="bold"
         >
           {pokemons.length} pokémon
         </Text>
         <Text
-        color="white"
         fontSize={16}
         fontWeight="medium"
         > registered.
@@ -83,7 +84,12 @@ export function Home() {
       <Card data={item.data} image={item.data.sprites.front_default} types={item.data.types}/>
       }
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={{borderRadius: 40, paddingBottom:60}} 
+      contentContainerStyle={{borderRadius: 40, paddingBottom:60}}
+      ListEmptyComponent={
+        <Center pt={12}>
+          <Ionicons name="md-chatbubble-ellipses-outline" size={48} color="gray" />
+        </Center>
+      }
       />
 
     </VStack>

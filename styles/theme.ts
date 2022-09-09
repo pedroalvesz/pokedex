@@ -20,5 +20,27 @@ export const THEME = extendTheme({
     dark: '#705746',
     steel: '#B7B7CE',
     fairy: '#D685AD',
+
+    light : {
+      normal: '#dcdcca',
+      fire: '#f8cdac',
+      water: '#c1d3f9',
+      electric: '#fcecab',
+      grass: '#cae9b7',
+      ice: '#d5f0ef',
+      fighting: '#eca6a3',
+      poison: '#e0acdf',
+      ground: '#f3e5c1',
+      flying: '#ddd2fa',
+      psychic: '#fdbbcf',
+      bug: '#e5f096',
+      rock: '#e6dcaa',
+      ghost: '#c7bad7',
+      dragon: '#c5aefe',
+      dark: '#cdbbae',
+      steel: '#e2e2eb',
+      fairy: '#efcede',
+    },
+
   }
 })

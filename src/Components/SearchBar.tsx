@@ -18,6 +18,7 @@ export function SearchBar({filterPokemon} : SearchBarProps) {
     placeholder="Search"
     variant="filled"
     width="100%"
+    height={8}
     borderRadius="10" 
     py="1" 
     px="2" 
