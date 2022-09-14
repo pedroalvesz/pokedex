@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Center, FlatList, HStack, Image, Text, VStack } from 'native-base'
-import { Ionicons} from "@expo/vector-icons";
 import axios from "axios";
 
 
@@ -21,7 +20,7 @@ export function Home() {
   async function fetchPokemon() {
     try {
       const urls = []
-      for(let i = 1; i < 50; i++) {
+      for(let i = 1; i < 31; i++) {
         const url = `https://pokeapi.co/api/v2/pokemon/${i}`
         urls.push(url)
       }
@@ -85,11 +84,6 @@ export function Home() {
       }
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{borderRadius: 40, paddingBottom:60}}
-      ListEmptyComponent={
-        <Center pt={12}>
-          <Ionicons name="md-chatbubble-ellipses-outline" size={48} color="gray" />
-        </Center>
-      }
       />
 
     </VStack>
