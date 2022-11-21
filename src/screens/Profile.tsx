@@ -1,32 +1,56 @@
-import {useEffect} from "react";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import {useEffect, useState} from "react";
+import { useNavigation, useRoute, useTheme } from "@react-navigation/native";
 import { Heading, HStack, IconButton, Image, VStack } from "native-base";
 import { CaretLeft } from "phosphor-react-native";
 
 import { SearchBar } from "../Components/SearchBar";
-import axios from "axios";
+import api from "../services/api"
 
-
-type RouteParams = {
+interface RouteParams {
   pokemonId: number,
+}
+
+interface PokemonProps {
+  name: string;
+  types: {
+    0: {
+      type: {
+        name: string;
+      }
+    }
+    1?: {
+      type?: {
+        name?: string;
+      }
+    }
+  };
+  abilities: {
+    0: {
+      ability: {
+        name: string;
+      }
+    }
+  };
+  typeColor: string;
 }
 
 export function Profile() {
 
+  const {colors} = useTheme()
   const navigation = useNavigation()
-  function handleGoBack() {
-    navigation.goBack()
-  }
-  
+  const [pokemon, setPokemon] = useState({} as PokemonProps)
   const route = useRoute();
   const {pokemonId} = route.params as RouteParams
 
   useEffect(() => {
     async function getDetails() {
       try {
-        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`)
+        const response = await api.get(`/pokemon/${pokemonId}`)
         const {name, types, abilities} = response.data
-
+        
+        const typeColor = types[0].type.name;
+        setPokemon({name, types, abilities, typeColor})
+        console.log(pokemon)
       } catch(error) {
         console.log(error)
       }
@@ -35,10 +59,14 @@ export function Profile() {
     getDetails()
   }, [])
 
+  function handleGoBack() {
+    navigation.goBack()
+  }
+
   return(
     <VStack
     flex={1}
-    bg="gray.800"
+    bg={pokemon.typeColor}
     >
       <HStack
       w="100%"
@@ -63,8 +91,8 @@ export function Profile() {
       justifyContent="center"
       alignItems="center"
       >
-        <Image w="250" h="250" source={require('../assets/pokeball_white.png')} alt={'pokeball'}/>
-        <Heading>{pokemonId}</Heading>
+        <Image w="300" h="300" source={require('../assets/pokeball_white.png')} alt={'pokeball'}/>
+        <Image position='absolute' zIndex={1} source={{uri : `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonId}.png`}} alt="Alternate Text" size="2xl"/>
       </VStack>
       <VStack
       rounded="3xl"

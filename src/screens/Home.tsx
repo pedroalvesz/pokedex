@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Center, FlatList, HStack, Image, Text, VStack } from 'native-base'
 import axios from "axios";
 
-
-
 import { Card } from "../Components/Card";
 import { PokeDTO } from "../dtos/PokeDto";
 import { SearchBar } from "../Components/SearchBar";
@@ -20,14 +18,13 @@ export function Home() {
   async function fetchPokemon() {
     try {
       const urls = []
-      for(let i = 1; i < 2; i++) {
+      for(let i = 1; i <= 100; i++) {
         const url = `https://pokeapi.co/api/v2/pokemon/${i}`
         urls.push(url)
       }
 
       const response = await axios.all(urls.map((url) => axios.get(url)))
       setPokemons(response)
-      console.log(response)
       
     } catch (error) {
       console.log(error)
