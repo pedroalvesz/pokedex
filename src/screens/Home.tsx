@@ -20,13 +20,14 @@ export function Home() {
   async function fetchPokemon() {
     try {
       const urls = []
-      for(let i = 1; i < 21; i++) {
+      for(let i = 1; i < 2; i++) {
         const url = `https://pokeapi.co/api/v2/pokemon/${i}`
         urls.push(url)
       }
 
       const response = await axios.all(urls.map((url) => axios.get(url)))
       setPokemons(response)
+      console.log(response)
       
     } catch (error) {
       console.log(error)

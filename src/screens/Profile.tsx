@@ -1,25 +1,40 @@
-import { useNavigation } from "@react-navigation/native";
-import { HStack, IconButton, Image, VStack } from "native-base";
+import {useEffect} from "react";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { Heading, HStack, IconButton, Image, VStack } from "native-base";
 import { CaretLeft } from "phosphor-react-native";
-import { PokeData } from "../Components/Card";
 
 import { SearchBar } from "../Components/SearchBar";
+import axios from "axios";
 
 
-
-interface Props {
- data: PokeData
+type RouteParams = {
+  pokemonId: number,
 }
 
-export function Profile({ data } : Props) {
+export function Profile() {
 
   const navigation = useNavigation()
-
   function handleGoBack() {
     navigation.goBack()
-    console.log(data)
   }
   
+  const route = useRoute();
+  const {pokemonId} = route.params as RouteParams
+
+  useEffect(() => {
+    async function getDetails() {
+      try {
+        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`)
+        const {name, types, abilities} = response.data
+
+      } catch(error) {
+        console.log(error)
+      }
+    }
+
+    getDetails()
+  }, [])
+
   return(
     <VStack
     flex={1}
@@ -41,7 +56,6 @@ export function Profile({ data } : Props) {
         <VStack
         w="80%"
         >
-          <SearchBar/>
         </VStack>
       </HStack>
       <VStack
@@ -50,6 +64,7 @@ export function Profile({ data } : Props) {
       alignItems="center"
       >
         <Image w="250" h="250" source={require('../assets/pokeball_white.png')} alt={'pokeball'}/>
+        <Heading>{pokemonId}</Heading>
       </VStack>
       <VStack
       rounded="3xl"

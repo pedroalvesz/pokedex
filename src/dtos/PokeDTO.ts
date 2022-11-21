@@ -1,7 +1,7 @@
 export interface PokeDTO {
   data: {
     name: string;
-    id: string;
+    id: number;
     url: string;
     sprites: {
       front_default: string;

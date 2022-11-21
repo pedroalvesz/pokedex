@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 
  export interface PokeData {
   name: string;
-  id: string;
+  id: number;
   url: string;
 }
 
@@ -19,10 +19,12 @@ interface Props{
 export function Card({data, image, types} : Props) {
   const {colors} = useTheme()
 
-  const navigation = useNavigation()
+  const {navigate} = useNavigation()
 
-  function showPokemon() {
-    navigation.navigate('profile', {data})
+  function showPokemonDetails(pokemonId : number) {
+    navigate('Profile', {
+      pokemonId,
+    })
   }
   //function typeChecker() {
   //  if(types[1]) {
@@ -34,7 +36,7 @@ export function Card({data, image, types} : Props) {
   //se existir 1 dentro do types (0 e/ou não 1) ele returna 0 e 1 - se não só 0
   return(
     <Pressable
-    onPress={showPokemon}
+    onPress={() => showPokemonDetails(data.id)}
     >
       <HStack
         w="100%"

@@ -10,8 +10,8 @@ export function Stack() {
   return(
     // A primeira rota sempre será a primeira screen.
     <Navigator screenOptions={{ headerShown: false }}>
-      <Screen name="home" component={Home}/>
-      <Screen name="profile" component={Profile}/>
+      <Screen name="Home" component={Home}/>
+      <Screen name="Profile" component={Profile}/>
     </Navigator>
   )
 }
