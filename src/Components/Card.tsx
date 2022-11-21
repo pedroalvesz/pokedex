@@ -1,8 +1,9 @@
 import React from "react";
-import { Heading, HStack, Image, Text, VStack, Circle, useTheme, Box} from 'native-base'
+import { Heading, HStack, Image, Text, VStack, Circle, useTheme, Box, Pressable} from 'native-base'
+import { useNavigation } from "@react-navigation/native";
 
 
-interface PokeData {
+ export interface PokeData {
   name: string;
   id: string;
   url: string;
@@ -18,6 +19,11 @@ interface Props{
 export function Card({data, image, types} : Props) {
   const {colors} = useTheme()
 
+  const navigation = useNavigation()
+
+  function showPokemon() {
+    navigation.navigate('profile', {data})
+  }
   //function typeChecker() {
   //  if(types[1]) {
   //    return types[0].type.name + "   " + types[1].type.name
@@ -27,49 +33,53 @@ export function Card({data, image, types} : Props) {
    
   //se existir 1 dentro do types (0 e/ou não 1) ele returna 0 e 1 - se não só 0
   return(
-    <HStack
-    w="100%"
-    h="120px"
-    bg={colors.light[types[0].type.name]}
-    rounded="md"
-    p={6}
-    mb={3}
+    <Pressable
+    onPress={showPokemon}
     >
       <HStack
-      flex={1}
-      justifyContent="space-between"
-      alignItems="center"
-      >
-      
-      <VStack>
-        <Heading pb={0.5} textTransform="capitalize" fontSize={16}>{data.name}</Heading>
-        <HStack
+        w="100%"
+        h="120px"
+        bg={colors.light[types[0].type.name]}
+        rounded="md"
+        p={6}
+        mb={3}
         >
-          {types[1] 
-          ?
-          <>
-          <Box rounded="lg" mr={1} bg={colors[types[0].type.name]}>
-            <Text px={1}>{types[0].type.name}</Text>
-          </Box>
-          <Box rounded="lg" bg={colors[types[1].type.name]}>
-            <Text px={1}>{types[1].type.name}</Text>
-          </Box>
-          </>
-          :
-          <Box rounded="lg" bg={colors[types[0].type.name]}>
-            <Text px={1}>{types[0].type.name}</Text>
-          </Box>
-         }
-          
+        <HStack
+        flex={1}
+        justifyContent="space-between"
+        alignItems="center"
+        >
+        
+          <VStack>
+            <Heading pb={0.5} textTransform="capitalize" fontSize={16}>{data.name}</Heading>
+            <HStack
+            >
+              {types[1] 
+              ?
+              <>
+              <Box rounded="lg" mr={1} bg={colors[types[0].type.name]}>
+                <Text px={1}>{types[0].type.name}</Text>
+              </Box>
+              <Box rounded="lg" bg={colors[types[1].type.name]}>
+                <Text px={1}>{types[1].type.name}</Text>
+              </Box>
+              </>
+              :
+              <Box rounded="lg" bg={colors[types[0].type.name]}>
+                <Text px={1}>{types[0].type.name}</Text>
+              </Box>
+            }
+              
+            </HStack>
+            
+          </VStack> 
+          <Circle w={24} h={24}>
+          <Image position='absolute' zIndex={1} source={{uri : image}} alt="Alternate Text" size="xl"/>
+          </Circle>
         </HStack>
         
-      </VStack> 
-        <Circle w={24} h={24}>
-        <Image position='absolute' zIndex={1} source={{uri : image}} alt="Alternate Text" size="xl"/>
-        </Circle>
-      </HStack>
-      
 
-    </HStack>
+      </HStack>
+    </Pressable>
   )
 }

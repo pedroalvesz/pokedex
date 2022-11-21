@@ -20,7 +20,7 @@ export function Home() {
   async function fetchPokemon() {
     try {
       const urls = []
-      for(let i = 1; i < 31; i++) {
+      for(let i = 1; i < 21; i++) {
         const url = `https://pokeapi.co/api/v2/pokemon/${i}`
         urls.push(url)
       }
