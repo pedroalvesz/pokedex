@@ -26,14 +26,7 @@ export function Card({data, image, types} : Props) {
       id,
     })
   }
-  //function typeChecker() {
-  //  if(types[1]) {
-  //    return types[0].type.name + "   " + types[1].type.name
-  //  }
-  //  return types[0].type.name
-  //}
-   
-  //se existir 1 dentro do types (0 e/ou não 1) ele returna 0 e 1 - se não só 0
+  
   return(
     <Pressable
     onPress={() => showPokemonDetails(data.id)}

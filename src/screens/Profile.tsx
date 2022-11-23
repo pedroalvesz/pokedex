@@ -1,9 +1,8 @@
 import {useEffect, useState} from "react";
 import { useNavigation, useRoute, useTheme } from "@react-navigation/native";
-import { Heading, HStack, IconButton, Image, VStack } from "native-base";
+import { Heading, HStack, IconButton, Image, VStack, Box, Text } from "native-base";
 import { CaretLeft, CaretRight } from "phosphor-react-native";
 
-import { SearchBar } from "../Components/SearchBar";
 import api from "../services/api"
 
 interface RouteParams {
@@ -35,10 +34,11 @@ interface PokemonProps {
 }
 
 export function Profile() {
-
+  
+  const { colors } = useTheme()
   const navigation = useNavigation()
   const route = useRoute();
-  let {id} = route.params as RouteParams
+  let { id } = route.params as RouteParams
 
   const [pokemon, setPokemon] = useState({} as PokemonProps)
   const [pokeId, setPokeId] = useState(id)
@@ -51,7 +51,7 @@ export function Profile() {
         
         const typeColor = types[0].type.name;
         setPokemon({name, types, abilities, typeColor})
-        console.log(pokemon)
+        
       } catch(error) {
         console.log(error)
       }
@@ -103,7 +103,7 @@ export function Profile() {
       justifyContent="center"
       alignItems="center"
       >
-        <Image w="300" h="300" source={require('../assets/pokeball_white.png')} alt={'pokeball'}/>
+        <Image w="300" h="300" opacity={0.25}  source={require('../assets/pokeball_white.png')} alt={'pokeball'}/>
         <Image position='absolute' zIndex={1} source={{uri : `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokeId}.png`}} alt="Alternate Text" size="2xl"/>
       </VStack>
       <VStack
