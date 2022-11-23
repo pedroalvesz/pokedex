@@ -1,13 +1,13 @@
 import {useEffect, useState} from "react";
 import { useNavigation, useRoute, useTheme } from "@react-navigation/native";
 import { Heading, HStack, IconButton, Image, VStack } from "native-base";
-import { CaretLeft } from "phosphor-react-native";
+import { CaretLeft, CaretRight } from "phosphor-react-native";
 
 import { SearchBar } from "../Components/SearchBar";
 import api from "../services/api"
 
 interface RouteParams {
-  pokemonId: number,
+  id: number,
 }
 
 interface PokemonProps {
@@ -36,16 +36,17 @@ interface PokemonProps {
 
 export function Profile() {
 
-  const {colors} = useTheme()
   const navigation = useNavigation()
-  const [pokemon, setPokemon] = useState({} as PokemonProps)
   const route = useRoute();
-  const {pokemonId} = route.params as RouteParams
+  let {id} = route.params as RouteParams
+
+  const [pokemon, setPokemon] = useState({} as PokemonProps)
+  const [pokeId, setPokeId] = useState(id)
 
   useEffect(() => {
     async function getDetails() {
       try {
-        const response = await api.get(`/pokemon/${pokemonId}`)
+        const response = await api.get(`/pokemon/${pokeId}`)
         const {name, types, abilities} = response.data
         
         const typeColor = types[0].type.name;
@@ -57,7 +58,15 @@ export function Profile() {
     }
 
     getDetails()
-  }, [])
+  }, [pokeId])
+
+  function handleLastPokemon() {
+    setPokeId(pokeId-1)
+  }
+
+  function handleNextPokemon() {
+    setPokeId(pokeId+1)
+  }
 
   function handleGoBack() {
     navigation.goBack()
@@ -78,13 +87,16 @@ export function Profile() {
         <IconButton
         w="24px"
         h="24px"
-        onPress={handleGoBack}
+        onPress={handleLastPokemon}
         icon={<CaretLeft size={32} color="black"/>}
         />
-        <VStack
-        w="80%"
-        >
-        </VStack>
+        <Heading textTransform="capitalize" fontSize={24}>{pokemon.name}</Heading>
+        <IconButton
+        w="24px"
+        h="24px"
+        onPress={handleNextPokemon}
+        icon={<CaretRight size={32} color="black"/>}
+        />
       </HStack>
       <VStack
       h="350"
@@ -92,7 +104,7 @@ export function Profile() {
       alignItems="center"
       >
         <Image w="300" h="300" source={require('../assets/pokeball_white.png')} alt={'pokeball'}/>
-        <Image position='absolute' zIndex={1} source={{uri : `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonId}.png`}} alt="Alternate Text" size="2xl"/>
+        <Image position='absolute' zIndex={1} source={{uri : `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokeId}.png`}} alt="Alternate Text" size="2xl"/>
       </VStack>
       <VStack
       rounded="3xl"

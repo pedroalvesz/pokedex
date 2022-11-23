@@ -21,9 +21,9 @@ export function Card({data, image, types} : Props) {
 
   const {navigate} = useNavigation()
 
-  function showPokemonDetails(pokemonId : number) {
+  function showPokemonDetails(id : number) {
     navigate('Profile', {
-      pokemonId,
+      id,
     })
   }
   //function typeChecker() {
