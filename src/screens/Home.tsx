@@ -76,7 +76,7 @@ export function Home() {
 
       <FlatList
       data={pokemons}
-      keyExtractor={(item) =>item.data.name}
+      keyExtractor={(item) => item.data.name}
       renderItem={({item}) =>
       <Card data={item.data} image={item.data.sprites.front_default} types={item.data.types}/>
       }

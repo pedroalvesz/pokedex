@@ -22,7 +22,7 @@ export function Card({data, image, types} : Props) {
   const {navigate} = useNavigation()
 
   function showPokemonDetails(id : number) {
-    navigate('Profile', {
+    navigate('profile', {
       id,
     })
   }

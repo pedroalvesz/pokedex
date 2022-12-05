@@ -36,6 +36,7 @@ interface PokemonProps {
 export function Profile() {
   
   const { colors } = useTheme()
+
   const navigation = useNavigation()
   const route = useRoute();
   let { id } = route.params as RouteParams
@@ -51,6 +52,7 @@ export function Profile() {
         
         const typeColor = types[0].type.name;
         setPokemon({name, types, abilities, typeColor})
+        console.log(pokemon.types[0].type.name)
         
       } catch(error) {
         console.log(error)
@@ -77,6 +79,7 @@ export function Profile() {
     flex={1}
     bg={pokemon.typeColor}
     >
+
       <HStack
       w="100%"
       mt="70px"
@@ -98,6 +101,7 @@ export function Profile() {
         icon={<CaretRight size={32} color="black"/>}
         />
       </HStack>
+
       <VStack
       h="350"
       justifyContent="center"
@@ -106,12 +110,18 @@ export function Profile() {
         <Image w="300" h="300" opacity={0.25}  source={require('../assets/pokeball_white.png')} alt={'pokeball'}/>
         <Image position='absolute' zIndex={1} source={{uri : `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokeId}.png`}} alt="Alternate Text" size="2xl"/>
       </VStack>
+
       <VStack
       rounded="3xl"
       bg="white"
       h="400px"
+      pt={5}
       >
+        <Box rounded="lg" mr={1} bg='normal'>
+          <Text px={1}>TESTANDO</Text>
+        </Box>
       </VStack>
+
     </VStack>
   )
 }
