@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Center, FlatList, HStack, Image, Text, VStack } from 'native-base'
+import { Center, FlatList, HStack, Image, Spinner, Text, VStack } from 'native-base'
+import Lottie from 'lottie-react-native';
 import axios from "axios";
 
 import { Card } from "../Components/Card";
@@ -9,6 +10,7 @@ import { SearchBar } from "../Components/SearchBar";
 export function Home() {
 
   const [pokemons, setPokemons] = useState<PokeDTO[]>([]);
+  const [Loading, setLoading] = useState(Boolean)
 
   useEffect(() => {
     fetchPokemon()
@@ -16,9 +18,10 @@ export function Home() {
 
 
   async function fetchPokemon() {
+    setLoading(true)
     try {
       const urls = []
-      for(let i = 1; i <= 20; i++) {
+      for(let i = 1; i <= 200; i++) {
         const url = `https://pokeapi.co/api/v2/pokemon/${i}`
         urls.push(url)
       }
@@ -28,6 +31,8 @@ export function Home() {
       
     } catch (error) {
       console.log(error)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -53,36 +58,52 @@ export function Home() {
       </Center>
       <SearchBar filterPokemon={filterPokemon}/>
 
-      <HStack
-      width="100%"
-      justifyContent="flex-end"
-      pt={6}
-      pb={3}
-      >
-      <HStack>
-        <Text
-        fontSize={16}
-        fontWeight="bold"
+      {Loading
+      ?
+      <VStack flex={1} alignItems='center' pt='56'>
+        <Lottie
+        source={require('../assets/pokeball-loading.json')}
+        autoPlay
+        loop
+        style={{
+          width: 96
+        }}
+        />
+      </VStack>
+      :
+      <VStack>
+        <HStack
+        width="100%"
+        justifyContent="flex-end"
+        pt={6}
+        pb={3}
         >
-          {pokemons.length} pokémon
-        </Text>
-        <Text
-        fontSize={16}
-        fontWeight="medium"
-        > registered.
-        </Text>
-      </HStack>
-      </HStack>
+        <HStack>
+          <Text
+          fontSize={16}
+          fontWeight="bold"
+          >
+            {pokemons.length} pokémon
+          </Text>
+          <Text
+          fontSize={16}
+          fontWeight="medium"
+          > registered.
+          </Text>
+        </HStack>
+        </HStack>
 
-      <FlatList
-      data={pokemons}
-      keyExtractor={(item) => item.data.name}
-      renderItem={({item}) =>
-      <Card data={item.data} image={item.data.sprites.front_default} types={item.data.types}/>
+        <FlatList
+        data={pokemons}
+        keyExtractor={(item) => item.data.name}
+        renderItem={({item}) =>
+        <Card data={item.data} image={item.data.sprites.front_default} types={item.data.types}/>
+        }
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{borderRadius: 40, paddingBottom:60}}
+        />
+      </VStack>
       }
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={{borderRadius: 40, paddingBottom:60}}
-      />
 
     </VStack>
   )
