@@ -79,7 +79,7 @@ export function Profile() {
     flex={1}
     bg={pokemon.typeColor}
     >
-
+      <Image w="225" h="225" opacity={0.15} position='absolute' top={12} right={4} source={require('../assets/pokeball_white.png')} alt={'pokeball'}/>
       <HStack
       w="100%"
       mt="70px"
@@ -87,38 +87,43 @@ export function Profile() {
       alignItems="center"
       justifyContent="space-between"
       >
+        <Heading textTransform="capitalize" fontSize={32} color='white'>
+          {pokemon.name}
+        </Heading>
+        <Heading textTransform="capitalize" fontSize={32} color='white'>
+          #{pokeId}
+        </Heading>
+      </HStack>
+
+      <HStack
+      h="275"
+      justifyContent="center"
+      alignItems="center"
+      >
         <IconButton
         w="24px"
         h="24px"
         onPress={handleLastPokemon}
-        icon={<CaretLeft size={32} color="black"/>}
+        icon={<CaretLeft size={32} color="white"/>}
         />
-        <Heading textTransform="capitalize" fontSize={24}>{pokemon.name}</Heading>
+        <Image  source={{uri : `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokeId}.png`}} alt="Alternate Text" size="2xl"/>
         <IconButton
         w="24px"
         h="24px"
         onPress={handleNextPokemon}
-        icon={<CaretRight size={32} color="black"/>}
+        icon={<CaretRight size={32} color="white"/>}
         />
       </HStack>
 
       <VStack
-      h="350"
-      justifyContent="center"
-      alignItems="center"
-      >
-        <Image w="300" h="300" opacity={0.25}  source={require('../assets/pokeball_white.png')} alt={'pokeball'}/>
-        <Image position='absolute' zIndex={1} source={{uri : `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokeId}.png`}} alt="Alternate Text" size="2xl"/>
-      </VStack>
-
-      <VStack
-      rounded="3xl"
       bg="white"
-      h="400px"
+      flex={1}
+      rounded="3xl"
       pt={5}
+      mx={3}
+      mb={4}
       >
-        <Box rounded="lg" mr={1} bg='normal'>
-          <Text px={1}>TESTANDO</Text>
+        <Box rounded="lg" mr={1} bg=''>
         </Box>
       </VStack>
 
