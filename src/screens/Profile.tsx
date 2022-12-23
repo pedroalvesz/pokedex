@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import { useNavigation, useRoute, useTheme } from "@react-navigation/native";
-import { Heading, HStack, IconButton, Image, VStack, Box, Text } from "native-base";
+import { Heading, HStack, IconButton, Image, VStack, Box, Text, View } from "native-base";
 import { CaretLeft, CaretRight } from "phosphor-react-native";
 
 import api from "../services/api"
@@ -31,11 +31,16 @@ interface PokemonProps {
       }
     }
   };
+  flavor_text_entries: {
+    15: {
+      flavor_text: string;
+    }
+  };
 }
 
 export function Profile() {
   
-  const { colors } = useTheme()
+  // pegar descrição daqui https://pokeapi.co/api/v2/pokemon-species/25/
 
   const route = useRoute();
   const { id } = route.params as RouteParams
@@ -55,9 +60,12 @@ export function Profile() {
   async function getDetails(id: number) {
     try {
       const res = await api.get(`/pokemon/${id}`)
+      const desc = await api.get(`/pokemon-species/${id}`)
 
-      const {name, types, abilities} = res.data
-      setPokemon({name, types, abilities})
+      const { name, types, abilities } = res.data
+      const { flavor_text_entries } = desc.data
+      console.log(flavor_text_entries)
+      setPokemon({name, types, abilities, flavor_text_entries})
       isLoading(false)
     } catch (error) {
       console.log(error)
@@ -100,9 +108,10 @@ export function Profile() {
           </HStack>
 
           <HStack
-          h="275"
-          justifyContent="center"
+          h="220"
+          justifyContent="space-between"
           alignItems="center"
+          px={6}
           >
             <IconButton
             w="24px"
@@ -110,7 +119,9 @@ export function Profile() {
             onPress={handleLastPokemon}
             icon={<CaretLeft size={32} color="white"/>}
             />
-            <Image  source={{uri : `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokeId}.png`}} alt="Alternate Text" size="2xl"/>
+            <View justifyContent='center' alignItems='center'>
+            <Image position='absolute' top={-75} source={{uri : `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokeId}.png`}} alt="Alternate Text" size="2xl"/>
+            </View>
             <IconButton
             w="24px"
             h="24px"
@@ -122,20 +133,35 @@ export function Profile() {
           <VStack
           bg="white"
           flex={1}
+          zIndex={-1}
+          alignItems='center'
           rounded="3xl"
           pt={5}
-          mx={3}
+          px={6}
+          mx={2}
           mb={4}
           >
-            <Box rounded="lg" mr={1} bg='red.100'>
+            <HStack pt={16} rounded="lg" justifyContent='center' space={4}>
               {
               pokemon.types[1]
               ?
-              <Text>TEM</Text>
+              <>
+              <Box rounded="lg" bg={pokemon.types[0].type.name}>
+                <Heading fontSize={18} textTransform='capitalize' color='white' py={1} px={2}>{pokemon.types[0].type.name}</Heading>
+              </Box>
+              <Box rounded="lg" bg={pokemon.types[1].type.name}>
+                <Heading fontSize={18} textTransform='capitalize' color='white' py={1} px={2}>{pokemon.types[1].type.name}</Heading>
+              </Box>
+              </>
               :
-              <Text>NÂO TEM</Text>
+              <Box rounded="lg" bg={pokemon.types[0].type.name}>
+                <Heading fontSize={18} textTransform='capitalize' color='white' py={1} px={2}>{pokemon.types[0].type.name}</Heading>
+              </Box>
               }
-            </Box>
+            </HStack>
+
+            <Heading fontSize={24} textTransform='capitalize' color={pokemon.types[0].type.name} py={1} px={2} my={4}>About</Heading>
+            <Text>{pokemon.flavor_text_entries[15].flavor_text.replace(/(\r\n|\n|\r|\t)/gm,"")}</Text>
           </VStack>
 
         </VStack>
