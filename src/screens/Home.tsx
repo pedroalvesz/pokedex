@@ -100,7 +100,7 @@ export function Home() {
         <Card data={item.data} image={item.data.sprites.front_default} types={item.data.types}/>
         }
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{borderRadius: 40, paddingBottom:60}}
+        contentContainerStyle={{borderRadius: 40, paddingBottom:80}}
         />
       </VStack>
       }
