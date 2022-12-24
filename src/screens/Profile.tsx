@@ -64,7 +64,6 @@ export function Profile() {
 
       const { name, types, abilities } = res.data
       const { flavor_text_entries } = desc.data
-      console.log(flavor_text_entries)
       setPokemon({name, types, abilities, flavor_text_entries})
       isLoading(false)
     } catch (error) {
@@ -102,7 +101,7 @@ export function Profile() {
             <Heading textTransform="capitalize" fontSize={32} color='white'>
               {pokemon.name}
             </Heading>
-            <Heading textTransform="capitalize" fontSize={32} color='white'>
+            <Heading textTransform="capitalize" fontSize={24} color='white'>
               #{pokeId}
             </Heading>
           </HStack>
