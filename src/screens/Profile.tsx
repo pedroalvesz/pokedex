@@ -1,10 +1,10 @@
 import {useEffect, useState} from "react";
-import { useNavigation, useRoute, useTheme } from "@react-navigation/native";
-import { Heading, HStack, IconButton, Image, VStack, Box, Text, View } from "native-base";
-import { CaretLeft, CaretRight } from "phosphor-react-native";
+import { Heading, HStack, IconButton, Image, VStack, Box, Text, View, Divider, useToast } from "native-base";
+import { useRoute } from "@react-navigation/native";
+import { CaretLeft, CaretRight, Ruler, Database, Package } from "phosphor-react-native";
 
 import api from "../services/api"
-import { PokeDTO } from "../dtos/PokeDto";
+
 
 interface RouteParams {
   id: number,
@@ -29,8 +29,15 @@ interface PokemonProps {
       ability: {
         name: string;
       }
+    },
+    1?: {
+      ability?: {
+        name?: string
+      }
     }
   };
+  height: number,
+  weight: number,
   flavor_text_entries: {
     15: {
       flavor_text: string;
@@ -40,14 +47,15 @@ interface PokemonProps {
 
 export function Profile() {
   
-  // pegar descrição daqui https://pokeapi.co/api/v2/pokemon-species/25/
-
   const route = useRoute();
   const { id } = route.params as RouteParams
+  
+  const toast = useToast()
 
   const [pokemon, setPokemon] = useState<PokemonProps>({} as PokemonProps)
   const [pokeId, setPokeId] = useState(id)
   const [Loading, isLoading] = useState(true)
+
 
   useEffect(() => {
     getDetails(pokeId)
@@ -62,9 +70,9 @@ export function Profile() {
       const res = await api.get(`/pokemon/${id}`)
       const desc = await api.get(`/pokemon-species/${id}`)
 
-      const { name, types, abilities } = res.data
+      const { name, types, abilities, weight, height } = res.data
       const { flavor_text_entries } = desc.data
-      setPokemon({name, types, abilities, flavor_text_entries})
+      setPokemon({name, types, abilities, flavor_text_entries, weight, height})
       isLoading(false)
     } catch (error) {
       console.log(error)
@@ -72,6 +80,13 @@ export function Profile() {
   }
 
   function handleLastPokemon() {
+    if(pokeId === 1) {
+      return toast.show({
+        title: 'There is no pokemon before Bulbasaur.',
+        placement: 'top',
+        bg: 'red.400'
+      })
+    }
     setPokeId(pokeId -1)
   }
 
@@ -158,9 +173,51 @@ export function Profile() {
               </Box>
               }
             </HStack>
+            
+
 
             <Heading fontSize={24} textTransform='capitalize' color={pokemon.types[0].type.name} py={1} px={2} my={4}>About</Heading>
-            <Text>{pokemon.flavor_text_entries[15].flavor_text.replace(/(\r\n|\n|\r|\t)/gm,"")}</Text>
+
+
+
+            <HStack alignItems='center' mb={4} width='full' justifyContent="space-around">
+
+              <VStack alignItems='center' py={2}>
+                <HStack justifyContent='center' alignItems='center'>
+                  <Package size={24}/>
+                  <Text ml={1}>{pokemon.weight / 10}kg</Text>
+                </HStack>
+                <Text fontSize='xs' color='#666666' pt={2}>Weight</Text>
+              </VStack>
+
+              <Divider mx={6} orientation="vertical"/>
+
+              <VStack alignItems='center' py={2}>
+                <HStack>
+                  <Ruler size={24}/>
+                  <Text ml={1}>{pokemon.height / 10}m</Text>
+                </HStack>
+                <Text fontSize='xs' color='#666666' pt={2}>Height</Text>
+              </VStack>
+
+              <Divider mx={6} orientation="vertical"/>
+
+              <VStack alignItems='center' py={2}>
+                {pokemon.abilities[1]
+                ?
+                <>
+                <Text textTransform='capitalize' mb={1}>{pokemon.abilities[0].ability.name}</Text>
+                <Text textTransform='capitalize'>{pokemon.abilities[1].ability.name}</Text>
+                </>
+                :
+                <Text textTransform='capitalize'>{pokemon.abilities[0].ability.name}</Text>
+                }
+                <Text fontSize='xs' color='#666666' pt={2}>Abilities</Text>
+              </VStack>
+
+            </HStack>
+
+            <Text textAlign='center'>{pokemon.flavor_text_entries[15].flavor_text.replace(/(\r\n|\n|\r|\t)/gm,"")}</Text>
           </VStack>
 
         </VStack>
