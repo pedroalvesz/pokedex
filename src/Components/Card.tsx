@@ -2,8 +2,9 @@ import React from "react";
 import { Heading, HStack, Image, Text, VStack, Circle, useTheme, Box, Pressable} from 'native-base'
 import { useNavigation } from "@react-navigation/native";
 
+import { StackRoutesNavigationProps } from "../routes/stack.routes";
 
- export interface PokeData {
+interface PokeData {
   name: string;
   id: number;
   url: string;
@@ -19,7 +20,7 @@ interface Props{
 export function Card({data, image, types} : Props) {
   const {colors} = useTheme()
 
-  const {navigate} = useNavigation()
+  const { navigate } = useNavigation<StackRoutesNavigationProps>()
 
   function showPokemonDetails(id : number) {
     navigate('profile', {

@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  VStack,
-  Input,
-  Icon,
-  Heading
-} from "native-base";
+import { VStack, Input, Icon } from "native-base";
 import { Ionicons} from "@expo/vector-icons";
 
 interface SearchBarProps {

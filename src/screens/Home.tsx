@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Center, FlatList, HStack, Image, Spinner, Text, VStack } from 'native-base'
+import { Center, FlatList, HStack, Image, Text, VStack } from 'native-base'
+
 import Lottie from 'lottie-react-native';
 import axios from "axios";
 
-import { Card } from "../Components/Card";
-import { PokeDTO } from "../dtos/PokeDto";
 import { SearchBar } from "../Components/SearchBar";
+import { Card } from "../Components/Card";
+
+import { PokeDTO } from "../dtos/PokeDto";
+
+
 
 export function Home() {
 
@@ -18,8 +22,8 @@ export function Home() {
 
 
   async function fetchPokemon() {
-    setLoading(true)
     try {
+      setLoading(true)
       const urls = []
       for(let i = 1; i <= 75; i++) {
         const url = `https://pokeapi.co/api/v2/pokemon/${i}`

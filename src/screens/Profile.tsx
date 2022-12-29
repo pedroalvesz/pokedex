@@ -1,49 +1,16 @@
 import {useEffect, useState} from "react";
 import { Heading, HStack, IconButton, Image, VStack, Box, Text, View, Divider, useToast } from "native-base";
 import { useRoute } from "@react-navigation/native";
-import { CaretLeft, CaretRight, Ruler, Database, Package } from "phosphor-react-native";
+import { CaretLeft, CaretRight, Ruler,  Package } from "phosphor-react-native";
 
 import api from "../services/api"
+import { detailsDTO } from "../dtos/detailsDTO";
 
 
 interface RouteParams {
   id: number,
 }
 
-interface PokemonProps {
-  name: string;
-  types: {
-    0: {
-      type: {
-        name: string;
-      }
-    }
-    1?: {
-      type?: {
-        name?: string;
-      }
-    }
-  };
-  abilities: {
-    0: {
-      ability: {
-        name: string;
-      }
-    },
-    1?: {
-      ability?: {
-        name?: string
-      }
-    }
-  };
-  height: number,
-  weight: number,
-  flavor_text_entries: {
-    15: {
-      flavor_text: string;
-    }
-  };
-}
 
 export function Profile() {
   
@@ -52,7 +19,7 @@ export function Profile() {
   
   const toast = useToast()
 
-  const [pokemon, setPokemon] = useState<PokemonProps>({} as PokemonProps)
+  const [pokemon, setPokemon] = useState<detailsDTO>({} as detailsDTO)
   const [pokeId, setPokeId] = useState(id)
   const [Loading, isLoading] = useState(true)
 

@@ -2,14 +2,12 @@ import {createNativeStackNavigator, NativeStackNavigationProp} from '@react-navi
 
 const {Screen, Navigator} = createNativeStackNavigator<StackRoutes>()
 
-
 import { Home } from '../screens/Home';
 import { Profile } from '../screens/Profile';
 
-
 type StackRoutes = {
   home: undefined;
-  profile: undefined;
+  profile:  {id: number; };
 }
 
 export type StackRoutesNavigationProps = NativeStackNavigationProp<StackRoutes>
