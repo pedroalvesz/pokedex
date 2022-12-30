@@ -4,13 +4,13 @@ import { useNavigation } from "@react-navigation/native";
 
 import { StackRoutesNavigationProps } from "../routes/stack.routes";
 
-interface PokeData {
+type PokeData = {
   name: string;
   id: number;
   url: string;
 }
 
-interface Props{
+type Props = {
   data: PokeData;
   image: string;
   types: {
@@ -54,15 +54,15 @@ export function Card({data, image, types} : Props) {
               ?
               <>
               <Box rounded="lg" mr={1} bg={colors[types[0].type.name]}>
-                <Text px={1}>{types[0].type.name}</Text>
+                <Text textTransform='capitalize' px={1}>{types[0].type.name}</Text>
               </Box>
               <Box rounded="lg" bg={colors[types[1].type.name]}>
-                <Text px={1}>{types[1].type.name}</Text>
+                <Text textTransform='capitalize' px={1}>{types[1].type.name}</Text>
               </Box>
               </>
               :
               <Box rounded="lg" bg={colors[types[0].type.name]}>
-                <Text px={1}>{types[0].type.name}</Text>
+                <Text textTransform='capitalize' px={1}>{types[0].type.name}</Text>
               </Box>
             }
               

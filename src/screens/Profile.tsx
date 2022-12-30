@@ -7,7 +7,7 @@ import api from "../services/api"
 import { detailsDTO } from "../dtos/detailsDTO";
 
 
-interface RouteParams {
+type RouteParams = {
   id: number,
 }
 
@@ -40,9 +40,11 @@ export function Profile() {
       const { name, types, abilities, weight, height } = res.data
       const { flavor_text_entries } = desc.data
       setPokemon({name, types, abilities, flavor_text_entries, weight, height})
-      isLoading(false)
+
     } catch (error) {
       console.log(error)
+    } finally {
+      isLoading(false)
     }
   }
 
@@ -184,7 +186,7 @@ export function Profile() {
 
             </HStack>
 
-            <Text textAlign='center'>{pokemon.flavor_text_entries[15].flavor_text.replace(/(\r\n|\n|\r|\t)/gm,"")}</Text>
+            <Text textAlign='center'>{pokemon.flavor_text_entries[15].flavor_text.replace(/(\r\n|\n|\r|\t)/gm," ")}</Text>
           </VStack>
 
         </VStack>

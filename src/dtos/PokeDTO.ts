@@ -1,4 +1,4 @@
-export interface PokeDTO {
+export type PokeDTO = {
   data: {
     name: string;
     id: number;
