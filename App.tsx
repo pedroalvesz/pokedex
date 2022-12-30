@@ -3,6 +3,7 @@ import { NativeBaseProvider } from 'native-base';
 
 
 import { Routes } from './src/routes';
+import { Favorites } from './src/screens/Favorites';
 import { THEME } from './styles/theme';
 
 export default function App() {

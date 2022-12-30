@@ -2,7 +2,7 @@ import React from "react";
 import { Heading, HStack, Image, Text, VStack, Circle, useTheme, Box, Pressable} from 'native-base'
 import { useNavigation } from "@react-navigation/native";
 
-import { StackRoutesNavigationProps } from "../routes/stack.routes";
+import { TabRoutesNavigationProps } from "../routes/tab.routes";
 
 type PokeData = {
   name: string;
@@ -20,7 +20,7 @@ type Props = {
 export function Card({data, image, types} : Props) {
   const {colors} = useTheme()
 
-  const { navigate } = useNavigation<StackRoutesNavigationProps>()
+  const { navigate } = useNavigation<TabRoutesNavigationProps>()
 
   function showPokemonDetails(id : number) {
     navigate('profile', {
