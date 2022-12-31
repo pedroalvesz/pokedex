@@ -2,14 +2,11 @@ import { Platform } from 'react-native'
 import { useTheme } from 'native-base';
 import { createBottomTabNavigator, BottomTabNavigationProp} from '@react-navigation/bottom-tabs'
 
-import { Home } from '../screens/Home';
 import { Favorites } from '../screens/Favorites';
-import { Profile } from '../screens/Profile';
 
 import HomeSvg from '../assets/home.svg'
 import FavoriteSvg from '../assets/star.svg'
 import { HomeProfileRoute } from './stack.routes';
-
 
 
 

@@ -1,12 +1,15 @@
-import {useEffect, useState} from "react";
-import { Heading, HStack, IconButton, Image, VStack, Box, Text, View, Divider, useToast, useTheme } from "native-base";
+import {useContext, useEffect, useState} from "react";
+import { TouchableOpacity } from 'react-native'
+import { Heading, HStack, IconButton, Image, VStack, Box, Text, View, Divider, useToast, useTheme} from "native-base";
 import { useRoute } from "@react-navigation/native";
 import { CaretLeft, CaretRight, Ruler,  Package } from "phosphor-react-native";
 
 import BookMarkSvg from '../assets/bookmark.svg'
+import BookMarkSlashSvg from '../assets/bookmark-slash.svg'
 
 import api from "../services/api"
 import { detailsDTO } from "../dtos/detailsDTO";
+import { AppContext } from "../contexts/AppContext";
 
 
 
@@ -18,25 +21,27 @@ type RouteParams = {
 export function Profile() {
   
   const route = useRoute();
-  const { id } = route.params as RouteParams
-  
-  const toast = useToast()
-  const { colors } = useTheme()
+  const { id } = route.params as RouteParams;
 
-  const [pokemon, setPokemon] = useState<detailsDTO>({} as detailsDTO)
-  const [pokeId, setPokeId] = useState(id)
-  const [Loading, isLoading] = useState(true)
+  const {updateFavPokemons, FavPokemons} = useContext(AppContext);
+  
+  const toast = useToast();
+  const { colors } = useTheme();
+
+  const [pokemon, setPokemon] = useState<detailsDTO>({} as detailsDTO);
+  const [pokeId, setPokeId] = useState(id);
+  const [Loading, isLoading] = useState(true);
 
   // usar contexto para atualizar o id direto, por isso ta bugando
 
   // ter que usar o useeffect do navigation
   useEffect(() => {
     getDetails(pokeId)
-  }, [])
+  }, []);
 
   useEffect(() => {
     getDetails(pokeId)
-  }, [pokeId])
+  }, [pokeId]);
 
   async function getDetails(id: number) {
     try {
@@ -69,6 +74,9 @@ export function Profile() {
     setPokeId(pokeId +1)
   }
 
+  function handleFavorite(id: number) {
+    updateFavPokemons(id)
+  }
 
   return(
     <>
@@ -80,7 +88,9 @@ export function Profile() {
         flex={1}
         bg={pokemon.types[0].type.name}
         >
+
           <Image w="225" h="225" opacity={0.15} position='absolute' top={12} right={4} source={require('../assets/pokeball_white.png')} alt={'pokeball'}/>
+
           <HStack
           w="100%"
           mt="70px"
@@ -88,15 +98,26 @@ export function Profile() {
           alignItems="center"
           justifyContent="space-between"
           >
+
             <Heading textTransform="capitalize" fontSize={32} color='white'>
               {pokemon.name}
             </Heading>
+
             <HStack alignItems='center'>
               <Heading textTransform="capitalize" fontSize={24} color='white' mr={2}>
                 #{pokeId}
               </Heading>
-              <BookMarkSvg fill='white' width={32} height={28}/>
+
+              <TouchableOpacity onPress={() => handleFavorite(pokeId)}>
+                {FavPokemons.includes(pokeId) 
+                ?
+                <BookMarkSlashSvg fill='white' width={32} height={28}/>
+                :
+                <BookMarkSvg fill='white' width={32} height={28}/>
+                }
+              </TouchableOpacity>
             </HStack>
+
           </HStack>
 
           <HStack
