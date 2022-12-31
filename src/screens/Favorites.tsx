@@ -1,11 +1,12 @@
-import {VStack, Center, Image, FlatList} from 'native-base'
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
+import {Alert as RNAlert} from 'react-native'
+import {VStack, Center, Image, FlatList, Text, Alert, HStack, IconButton, CloseIcon, Box} from 'native-base'
 import { FavoriteCard } from '../Components/FavoriteCard'
 import { AppContext } from '../contexts/AppContext'
 
 export function Favorites() {
 
-  const { FavPokemons } = useContext(AppContext)
+  const { FavPokemons, updateFavPokemons } = useContext(AppContext)
   return(
     <VStack
     flex={1}
@@ -19,7 +20,40 @@ export function Favorites() {
       <VStack flex={1} pt={10} alignItems='center'>
         <FlatList
         data={FavPokemons}
-        renderItem={({item}) => <FavoriteCard pokemon={item}/>}
+        numColumns={2}
+        renderItem={({item}) => <FavoriteCard pokemon={item} onLongPress={() => RNAlert.alert(
+          "Remove this Pokémon from favorites?",
+          "",
+      [
+        {
+          text: "No",
+          style: "cancel",
+        },
+        {
+          text: "Yes",
+          onPress: () => updateFavPokemons(item)
+        }
+      ]
+        )}/>}
+        ListEmptyComponent={
+          <Alert maxW="400" status="info" colorScheme="info" mt={40}>
+          <VStack space={2} flexShrink={1} w="100%">
+            <HStack flexShrink={1} space={2} alignItems="center" justifyContent="space-between">
+              <HStack flexShrink={1} space={2} alignItems="center">
+                <Alert.Icon />
+                <Text fontSize="md" fontWeight="medium" color="coolGray.800">
+                  You have no favorited pokemon.
+                </Text>
+              </HStack>
+            </HStack>
+            <Box pl="6" _text={{
+            color: "coolGray.600"
+          }}>
+              You should get some on home screen !
+            </Box>
+          </VStack>
+        </Alert>
+        }
         />
       </VStack>
     </VStack>

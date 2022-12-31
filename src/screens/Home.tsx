@@ -25,7 +25,7 @@ export function Home() {
     try {
       setLoading(true)
       const urls = []
-      for(let i = 1; i <= 75; i++) {
+      for(let i = 1; i <= 151; i++) {
         const url = `https://pokeapi.co/api/v2/pokemon/${i}`
         urls.push(url)
       }

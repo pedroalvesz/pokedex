@@ -1,4 +1,3 @@
-import React, { useContext } from "react";
 import { Heading, HStack, Image, Text, VStack, Circle, useTheme, Box, Pressable} from 'native-base'
 import { useNavigation } from "@react-navigation/native";
 

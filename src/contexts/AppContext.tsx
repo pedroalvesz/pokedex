@@ -1,4 +1,3 @@
-import { useToast } from 'native-base';
 import { createContext, ReactNode, useState } from 'react'
 
 type AppContextDataProps = {
@@ -17,15 +16,11 @@ export function AppContextProvider({children} : ProviderProps) {
 
   const [FavPokemons, setFavPokemons] = useState([])
 
-  const toast = useToast()
 
   function updateFavPokemons(id: number) {
     if(FavPokemons.find(number => number === id)) {
-      toast.show({
-        title: 'You have already favorited this pokémon.',
-        backgroundColor: 'yellow.500',
-        placement: 'top'
-      })
+      setFavPokemons(FavPokemons.filter(number => number !== id))
+      return;
     }
     setFavPokemons(current => [...current, id])
   }
