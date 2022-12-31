@@ -1,12 +1,15 @@
 import { Platform } from 'react-native'
+import { useTheme } from 'native-base';
 import { createBottomTabNavigator, BottomTabNavigationProp} from '@react-navigation/bottom-tabs'
 
 import { Home } from '../screens/Home';
 import { Favorites } from '../screens/Favorites';
 import { Profile } from '../screens/Profile';
+
 import HomeSvg from '../assets/home.svg'
 import FavoriteSvg from '../assets/star.svg'
-import { useTheme } from 'native-base';
+import { HomeProfileRoute } from './stack.routes';
+
 
 
 
@@ -14,8 +17,7 @@ const {Navigator, Screen} = createBottomTabNavigator<TabRoutes>()
 
 
 export type TabRoutes = {
-  home: undefined;
-  profile: {id: number}
+  dashboard: undefined;
   favorites: undefined;
 }
 
@@ -43,21 +45,22 @@ export function TabRoutes() {
         paddingTop: 24,
         bottom: 24,
         marginHorizontal: 88,
+        shadowColor: colors.gray[900],
+        shadowOffset: {
+          height: 10,
+          width: 0,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.5,
       }
       }}>
 
       <Screen
-      name='home'
-      component={Home}
+      name='dashboard'
+      component={HomeProfileRoute}
       options={{tabBarIcon:({color}) => <HomeSvg fill={color} width={ICON_SIZE} height={ICON_SIZE}/>}}
       />
-      
-      <Screen
-      name='profile'
-      component={Profile}
-      options={{tabBarButton: () => null}}
-      />
-      
+
       <Screen
       name= 'favorites'
       component={Favorites}

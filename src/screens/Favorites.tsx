@@ -1,6 +1,9 @@
-import {VStack, Center, Image, Text} from 'native-base'
+import {VStack, Center, Image, Text, Heading, HStack, FlatList} from 'native-base'
+import { useState } from 'react'
+import { FavoriteCard } from '../Components/FavoriteCard'
 
 export function Favorites() {
+
   return(
     <VStack
     flex={1}
@@ -11,9 +14,9 @@ export function Favorites() {
       <Center pb={5}>
       <Image w="200px" h="75px" source={require('../assets/logo.png')} alt="Pokedex Logo"/>
       </Center>
-
-      <Text>FAVORITES</Text>
-
+      <VStack flex={1} pt={10} alignItems='center'>
+        <FavoriteCard/>
+      </VStack>
     </VStack>
   )
 }

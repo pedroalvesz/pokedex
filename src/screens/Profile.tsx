@@ -1,10 +1,13 @@
 import {useEffect, useState} from "react";
-import { Heading, HStack, IconButton, Image, VStack, Box, Text, View, Divider, useToast } from "native-base";
+import { Heading, HStack, IconButton, Image, VStack, Box, Text, View, Divider, useToast, useTheme } from "native-base";
 import { useRoute } from "@react-navigation/native";
 import { CaretLeft, CaretRight, Ruler,  Package } from "phosphor-react-native";
 
+import BookMarkSvg from '../assets/bookmark.svg'
+
 import api from "../services/api"
 import { detailsDTO } from "../dtos/detailsDTO";
+
 
 
 type RouteParams = {
@@ -18,12 +21,15 @@ export function Profile() {
   const { id } = route.params as RouteParams
   
   const toast = useToast()
+  const { colors } = useTheme()
 
   const [pokemon, setPokemon] = useState<detailsDTO>({} as detailsDTO)
   const [pokeId, setPokeId] = useState(id)
   const [Loading, isLoading] = useState(true)
 
+  // usar contexto para atualizar o id direto, por isso ta bugando
 
+  // ter que usar o useeffect do navigation
   useEffect(() => {
     getDetails(pokeId)
   }, [])
@@ -85,9 +91,12 @@ export function Profile() {
             <Heading textTransform="capitalize" fontSize={32} color='white'>
               {pokemon.name}
             </Heading>
-            <Heading textTransform="capitalize" fontSize={24} color='white'>
-              #{pokeId}
-            </Heading>
+            <HStack alignItems='center'>
+              <Heading textTransform="capitalize" fontSize={24} color='white' mr={2}>
+                #{pokeId}
+              </Heading>
+              <BookMarkSvg fill='white' width={32} height={28}/>
+            </HStack>
           </HStack>
 
           <HStack
@@ -149,11 +158,11 @@ export function Profile() {
             
 
 
-            <Heading fontSize={24} textTransform='capitalize' color={pokemon.types[0].type.name} py={1} px={2} my={4}>About</Heading>
+            <Heading fontSize={24} textTransform='capitalize' color={pokemon.types[0].type.name} py={1} px={2} my={2}>About</Heading>
 
 
 
-            <HStack alignItems='center' mb={4} width='full' justifyContent="space-around">
+            <HStack alignItems='center' mb={2} width='full' justifyContent="space-around">
 
               <VStack alignItems='center' py={2}>
                 <HStack justifyContent='center' alignItems='center'>
@@ -191,6 +200,10 @@ export function Profile() {
             </HStack>
 
             <Text textAlign='center'>{pokemon.flavor_text_entries[15].flavor_text.replace(/(\r\n|\n|\r|\t)/gm," ")}</Text>
+
+            <HStack position='absolute' bottom={24}>
+              
+            </HStack>
           </VStack>
 
         </VStack>

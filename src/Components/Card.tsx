@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Heading, HStack, Image, Text, VStack, Circle, useTheme, Box, Pressable} from 'native-base'
 import { useNavigation } from "@react-navigation/native";
 
-import { TabRoutesNavigationProps } from "../routes/tab.routes";
+import { StackRoutesNavigationProps } from "../routes/stack.routes";
 
 type PokeData = {
   name: string;
@@ -18,14 +18,13 @@ type Props = {
 }
 
 export function Card({data, image, types} : Props) {
+
   const {colors} = useTheme()
 
-  const { navigate } = useNavigation<TabRoutesNavigationProps>()
+  const { navigate } = useNavigation<StackRoutesNavigationProps>()
 
   function showPokemonDetails(id : number) {
-    navigate('profile', {
-      id,
-    })
+    navigate('profile', {id})
   }
   
   return(
