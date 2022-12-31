@@ -72,7 +72,7 @@ export function Profile() {
       :
       <VStack
         flex={1}
-        bg={pokemon.types[0].type.name }
+        bg={pokemon.types[0].type.name}
         >
           <Image w="225" h="225" opacity={0.15} position='absolute' top={12} right={4} source={require('../assets/pokeball_white.png')} alt={'pokeball'}/>
           <HStack
@@ -124,7 +124,11 @@ export function Profile() {
           mx={2}
           mb={4}
           >
-            <HStack pt={16} rounded="lg" justifyContent='center' space={4}>
+            <HStack
+            pt={16}
+            rounded="lg"
+            justifyContent='center'
+            space={4}>
               {
               pokemon.types[1]
               ?
