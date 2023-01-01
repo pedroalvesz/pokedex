@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Center, FlatList, HStack, Image, Text, VStack } from 'native-base'
+import { FlatList, HStack, Text, VStack } from 'native-base'
 
 import axios from "axios";
 
+import { Header } from "../Components/Header";
+import { LoadingPokeball } from "../Components/LoadingPokeball";
 import { SearchBar } from "../Components/SearchBar";
 import { Card } from "../Components/Card";
 
 import { PokeDTO } from "../dtos/PokeDto";
-import { LoadingPokeball } from "../Components/LoadingPokeball";
 
 
 
@@ -40,7 +41,6 @@ export function Home() {
     }
   }
 
-
   function filterPokemon(name) {
     if (name.trim() === "") {
       fetchPokemon()
@@ -50,6 +50,7 @@ export function Home() {
     setPokemons(filteredPokemon)
   }
 
+  
   return(
     <VStack
     flex={1}
@@ -57,11 +58,8 @@ export function Home() {
     px={6}
     bg="white"
     >
-      <Center pb={5}>
-      <Image w="200px" h="75px" source={require('../assets/logo.png')} alt="Pokedex Logo"/>
-      </Center>
+      <Header/>
       <SearchBar filterPokemon={filterPokemon}/>
-
       {Loading
       ?
       <LoadingPokeball/>
@@ -99,7 +97,6 @@ export function Home() {
         />
       </VStack>
       }
-
     </VStack>
   )
 }

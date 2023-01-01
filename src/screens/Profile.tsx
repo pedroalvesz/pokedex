@@ -1,15 +1,16 @@
 import {useContext, useEffect, useState} from "react";
 import { TouchableOpacity } from 'react-native'
-import { Heading, HStack, IconButton, Image, VStack, Box, Text, View, Divider, useToast, useTheme} from "native-base";
+import { Heading, HStack, IconButton, Image, VStack, Box, Text, View, Divider, useToast} from "native-base";
 import { useRoute } from "@react-navigation/native";
 import { CaretLeft, CaretRight, Ruler,  Package } from "phosphor-react-native";
 
 import BookMarkSvg from '../assets/bookmark.svg'
 import BookMarkSlashSvg from '../assets/bookmark-slash.svg'
 
-import api from "../services/api"
 import { detailsDTO } from "../dtos/detailsDTO";
 import { AppContext } from "../contexts/AppContext";
+import api from "../services/api"
+
 
 
 
@@ -31,9 +32,7 @@ export function Profile() {
   const [pokeId, setPokeId] = useState(id);
   const [Loading, isLoading] = useState(true);
 
-  // usar contexto para atualizar o id direto, por isso ta bugando
 
-  // ter que usar o useeffect do navigation
   useEffect(() => {
     getDetails(pokeId)
   }, []);
@@ -81,13 +80,16 @@ export function Profile() {
     <>
       {Loading
       ? 
-      <Text>CARREGADO</Text>
+      <VStack
+      flex={1}
+      bg='white'
+      >
+      </VStack>
       :
       <VStack
         flex={1}
         bg={pokemon.types[0].type.name}
         >
-
           <Image w="225" h="225" opacity={0.15} position='absolute' top={12} right={4} source={require('../assets/pokeball_white.png')} alt={'pokeball'}/>
 
           <HStack
@@ -97,7 +99,6 @@ export function Profile() {
           alignItems="center"
           justifyContent="space-between"
           >
-
             <Heading textTransform="capitalize" fontSize={32} color='white'>
               {pokemon.name}
             </Heading>
@@ -157,7 +158,8 @@ export function Profile() {
             pt={16}
             rounded="lg"
             justifyContent='center'
-            space={4}>
+            space={4}
+            >
               {
               pokemon.types[1]
               ?
@@ -176,11 +178,9 @@ export function Profile() {
               }
             </HStack>
             
-
-
-            <Heading fontSize={24} textTransform='capitalize' color={pokemon.types[0].type.name} py={1} px={2} my={2}>About</Heading>
-
-
+            <Heading fontSize={24} textTransform='capitalize' color={pokemon.types[0].type.name} py={1} px={2} my={2}>
+              About
+            </Heading>
 
             <HStack alignItems='center' mb={2} width='full' justifyContent="space-around">
 
