@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Center, FlatList, HStack, Image, Text, VStack } from 'native-base'
 
-import Lottie from 'lottie-react-native';
 import axios from "axios";
 
 import { SearchBar } from "../Components/SearchBar";
 import { Card } from "../Components/Card";
 
 import { PokeDTO } from "../dtos/PokeDto";
+import { LoadingPokeball } from "../Components/LoadingPokeball";
 
 
 
@@ -64,16 +64,7 @@ export function Home() {
 
       {Loading
       ?
-      <VStack flex={1} alignItems='center' pt='56'>
-        <Lottie
-        source={require('../assets/pokeball-loading.json')}
-        autoPlay
-        loop
-        style={{
-          width: 96
-        }}
-        />
-      </VStack>
+      <LoadingPokeball/>
       :
       <VStack>
         <HStack

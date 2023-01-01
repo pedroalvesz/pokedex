@@ -1,12 +1,16 @@
 import { useContext } from 'react'
 import { Alert as DefaultAlert } from 'react-native'
-import { VStack, Center, Image, FlatList, Text, Alert, HStack, Box } from 'native-base'
+import { VStack, Center, Image, FlatList} from 'native-base'
+
+
 import { FavoriteCard } from '../Components/FavoriteCard'
+import { LoadingPokeball } from '../Components/LoadingPokeball'
 import { AppContext } from '../contexts/AppContext'
+import { ListEmpty } from '../Components/ListEmpty'
 
 export function Favorites() {
 
-  const { FavPokemons, updateFavPokemons } = useContext(AppContext)
+  const { FavPokemons, updateFavPokemons, loadingUserFavorite } = useContext(AppContext)
   return(
     <VStack
     flex={1}
@@ -18,43 +22,34 @@ export function Favorites() {
       <Image w="200px" h="75px" source={require('../assets/logo.png')} alt="Pokedex Logo"/>
       </Center>
       <VStack flex={1} pt={10} alignItems='center'>
+      {
+        loadingUserFavorite
+        ?
+        <LoadingPokeball/>
+        :
         <FlatList
         data={FavPokemons}
-        numColumns={2}
+        keyExtractor={(item) => item.toString()}
         renderItem={({item}) => <FavoriteCard pokemon={item} onLongPress={() => DefaultAlert.alert(
           "Remove this Pokémon from favorites?",
           "",
-      [
-        {
-          text: "No",
-          style: "cancel",
-        },
-        {
-          text: "Yes",
-          onPress: () => updateFavPokemons(item)
-        }
-      ]
+          [
+            {
+              text: "No",
+              style: "cancel",
+            },
+            {
+              text: "Yes",
+              onPress: () => updateFavPokemons(item)
+            }
+          ]
         )}/>}
-        ListEmptyComponent={
-          <Alert maxW="400" status="info" colorScheme="info" mt={40}>
-          <VStack space={2} flexShrink={1} w="100%">
-            <HStack flexShrink={1} space={2} alignItems="center" justifyContent="space-between">
-              <HStack flexShrink={1} space={2} alignItems="center">
-                <Alert.Icon />
-                <Text fontSize="md" fontWeight="medium" color="coolGray.800">
-                  You have no favorited pokemon.
-                </Text>
-              </HStack>
-            </HStack>
-            <Box pl="6" _text={{
-            color: "coolGray.600"
-          }}>
-              You should get some on home screen !
-            </Box>
-          </VStack>
-        </Alert>
-        }
+        numColumns={2}
+        ListEmptyComponent={<ListEmpty/>}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{paddingBottom: 92}}
         />
+      }
       </VStack>
     </VStack>
   )

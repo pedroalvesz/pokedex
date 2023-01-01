@@ -1,5 +1,5 @@
 import { TouchableOpacity, TouchableOpacityProps} from 'react-native'
-import { Box, Image, Spinner } from 'native-base'
+import { Box, Image, Skeleton, Spinner } from 'native-base'
 import { useEffect, useState } from 'react';
 import api from '../services/api';
 
@@ -33,7 +33,16 @@ export function FavoriteCard({pokemon, ...rest} : FavoriteCardProps) {
   }, [])
 
   if(isLoading) {
-    return <Spinner/>
+    return (
+      <Skeleton
+      width='150px'
+      height='150px'
+      rounded='xl'
+      startColor='gray.300'
+      endColor="gray.50"
+      m={2}
+      />
+    )
   }
 
   return(
