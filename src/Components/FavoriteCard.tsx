@@ -1,6 +1,7 @@
 import { TouchableOpacity, TouchableOpacityProps} from 'react-native'
-import { Box, Image } from 'native-base'
-
+import { Box, Image, Spinner } from 'native-base'
+import { useEffect, useState } from 'react';
+import api from '../services/api';
 
 type FavoriteCardProps = TouchableOpacityProps & {
   pokemon: number;
@@ -8,10 +9,37 @@ type FavoriteCardProps = TouchableOpacityProps & {
 
 export function FavoriteCard({pokemon, ...rest} : FavoriteCardProps) {
 
+  const [isLoading, setIsLoading] = useState(true)
+  const [typeColor, setTypeColor] = useState('') 
+  
+  async function getType() {
+    try {
+      const response = await api.get(`/pokemon/${pokemon}`)
+      const { types } = response.data
+
+      const typeColor = types[0].type.name
+
+      setTypeColor(typeColor)
+
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    getType()
+  }, [])
+
+  if(isLoading) {
+    return <Spinner/>
+  }
+
   return(
     <TouchableOpacity {...rest}>
       <Box
-      bg='gray.200'
+      bg={typeColor}
       width='150px'
       height='150px'
       justifyContent='center'

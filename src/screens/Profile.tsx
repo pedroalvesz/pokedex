@@ -26,8 +26,7 @@ export function Profile() {
   const {updateFavPokemons, FavPokemons} = useContext(AppContext);
   
   const toast = useToast();
-  const { colors } = useTheme();
-
+  
   const [pokemon, setPokemon] = useState<detailsDTO>({} as detailsDTO);
   const [pokeId, setPokeId] = useState(id);
   const [Loading, isLoading] = useState(true);

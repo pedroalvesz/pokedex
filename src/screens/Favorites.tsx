@@ -1,6 +1,6 @@
 import { useContext } from 'react'
-import {Alert as RNAlert} from 'react-native'
-import {VStack, Center, Image, FlatList, Text, Alert, HStack, IconButton, CloseIcon, Box} from 'native-base'
+import { Alert as DefaultAlert } from 'react-native'
+import { VStack, Center, Image, FlatList, Text, Alert, HStack, Box } from 'native-base'
 import { FavoriteCard } from '../Components/FavoriteCard'
 import { AppContext } from '../contexts/AppContext'
 
@@ -21,7 +21,7 @@ export function Favorites() {
         <FlatList
         data={FavPokemons}
         numColumns={2}
-        renderItem={({item}) => <FavoriteCard pokemon={item} onLongPress={() => RNAlert.alert(
+        renderItem={({item}) => <FavoriteCard pokemon={item} onLongPress={() => DefaultAlert.alert(
           "Remove this Pokémon from favorites?",
           "",
       [
