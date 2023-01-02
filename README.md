@@ -1,30 +1,54 @@
     ##  Hello World 👋 I´m Pedro, a Software Engineer Student
 
 
-<h2 align="center">
- ⚡ A SIMPLE POKEAPI V2 CONSUMPTION - PROJECT NOT FINISHED YET
-</h2>
   <div width="100%" overflow="hidden" align="center">
-  <img src="project.gif" width="45%" />
+  <img src="pokedex.gif" width="45%" />
   </div>
-  <p align="center" width="30%">
- ⚠️ iOS Platform used only for illustration,
-  </p>
-  <p align="center" width="30%">
-    application works on both Android and iOS devices.
-  </p>
-  
-   
   <br>
 
-## 🚀 Used Technologies
+   > ⚠️Warning:  iOS Platform used only for illustration, application works on both Android and iOS devices.
+  <br>
 
-<div style="display: inline_block">
-<img src="https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB">
-<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
-<img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white">
-</div>
-<br>
+  <br>
+
+## 📚 About
+
+An App which allows user to scroll around a list of Pokémon, get detailed informations and save the ones it liked the most. 
+
+This aim behind this project was to practice the conceps of **RESTful API** consuming the [PokéAPI](https://pokeapi.co/), **Context API** and **Async Storage**.
+
+## 🔨 Technologies
+
+This project was developed with the following technologies:
+
+- [Expo](https://expo.io/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [React Native](https://reactnative.dev/)
+- [React Navigation](https://reactnavigation.org/)
+- [Axios](https://github.com/axios/axios)
+- [Native Base](https://nativebase.io/)
+- [Async Storage](https://docs.expo.dev/versions/latest/sdk/async-storage/)
+- [Lottie](https://www.npmjs.com/package/lottie-react-native)
+
+## 📱 Run project
+
+```bash
+  # Clone the project
+  $ git clone https://github.com/pedroalvesz/pokedex.git
+```
+
+```bash
+  # Install the dependencies, if you use npm
+  $ npm install
+```
+
+<p align="center">or</p>
+
+```bash
+  # Install the dependencies, if you use yarn
+  $ yarn
+```
+
 
 ## 💬 Find me elsewhere
 
