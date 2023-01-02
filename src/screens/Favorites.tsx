@@ -18,6 +18,7 @@ export function Favorites() {
     px={6}
     bg="white"
     >
+      <Image w="250" h="250" opacity={0.05} position='absolute' top='30%' right='20%' source={require('../assets/pokeball_gray.png')} alt='pokeball'/>
       <Center pb={5}>
       <Image w="200px" h="75px" source={require('../assets/logo.png')} alt="Pokedex Logo"/>
       </Center>
