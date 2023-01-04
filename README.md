@@ -1,6 +1,3 @@
-    ##  Hello There 👋 I´m Pedro, a Software Engineer Student
-
-
   <div width="100%" overflow="hidden" align="center">
   <img src="pokedex.gif" width="45%" />
   </div>
