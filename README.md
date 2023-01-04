@@ -1,4 +1,4 @@
-    ##  Hello World 👋 I´m Pedro, a Software Engineer Student
+    ##  Hello There 👋 I´m Pedro, a Software Engineer Student
 
 
   <div width="100%" overflow="hidden" align="center">
